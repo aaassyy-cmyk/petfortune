@@ -220,7 +220,7 @@ function Screen2({ petInfo, onDone }) {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        model: "claude-sonnet-4-5",
+        model: "claude-sonnet-4-20250514",
         max_tokens: 1000,
         messages: [{ role: "user", content: prompt }]
       })
@@ -353,6 +353,15 @@ function Screen3({ petInfo, result, onNext, onReset }) {
           </div>
         </div>
 
+        {/* 무료 프로모션 배너 */}
+        <div className="flex items-center gap-2 rounded-2xl px-4 py-3" style={{ background: "linear-gradient(135deg,#fff7ed,#fef3c7)", border: "1.5px solid #fed7aa" }}>
+          <span className="text-lg">🎁</span>
+          <div className="flex-1">
+            <div className="text-xs font-bold text-orange-600">5월 31일까지 궁합 무료!</div>
+            <div className="text-xs text-orange-400">6월 1일부터 990원 · 지금 무료로 확인하세요</div>
+          </div>
+        </div>
+
         {/* Compat CTA */}
         <button onClick={onNext} className="w-full flex items-center gap-3 rounded-2xl p-4 border-2 transition-all active:scale-95" style={{ background: "linear-gradient(135deg,#fdf4ff,#f0e8ff)", borderColor: "#e8d5ff" }}>
           <span className="text-3xl">💞</span>
@@ -477,7 +486,7 @@ function Screen5Loading({ petInfo, result, ownerInfo, onDone }) {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        model: "claude-sonnet-4-5",
+        model: "claude-sonnet-4-20250514",
         max_tokens: 800,
         messages: [{ role: "user", content: prompt }]
       })
