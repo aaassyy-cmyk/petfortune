@@ -220,7 +220,7 @@ function Screen2({ petInfo, onDone }) {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        model: "claude-sonnet-4-20250514",
+        model: "claude-sonnet-4-5",
         max_tokens: 1000,
         messages: [{ role: "user", content: prompt }]
       })
@@ -480,7 +480,7 @@ function Screen5Loading({ petInfo, result, ownerInfo, onDone }) {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        model: "claude-sonnet-4-20250514",
+        model: "claude-sonnet-4-5",
         max_tokens: 800,
         messages: [{ role: "user", content: prompt }]
       })
