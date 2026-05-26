@@ -1,0 +1,46 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: #f0eefc;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* 모바일에서 스크롤 부드럽게 */
+body {
+  overflow-x: hidden;
+}
+
+/* 버튼 기본 스타일 초기화 */
+button {
+  cursor: pointer;
+  font-family: inherit;
+}
+
+input {
+  font-family: inherit;
+}
+
+/* 모바일 실제 기기에서 전체화면처럼 보이게 */
+@media (max-width: 400px) {
+  #root > div {
+    padding: 0 !important;
+  }
+  #root > div > div {
+    border-radius: 0 !important;
+    border: none !important;
+    min-height: 100vh !important;
+    width: 100% !important;
+    box-shadow: none !important;
+  }
+}
