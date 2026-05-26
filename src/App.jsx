@@ -212,7 +212,7 @@ function Screen2({ petInfo, onDone }) {
   "stats": { "활동성": 숫자(40-99), "애정도": 숫자(40-99), "고집": 숫자(40-99) },
   "personality": "2-3문장. 재미있고 공감가는 성격 설명. ${petInfo.petName}이/가 주어로.",
   "carePoint": "2-3문장. 구체적이고 귀여운 케어 팁.",
-  "snacks": ["간식1", "간식2", "간식3", "간식4"],
+  "snacks": ${petInfo.petType === "강아지" ? JSON.stringify(["고구마 스틱","닭가슴살 져키","연어 트릿","치즈 큐브","오리 육포"]) : JSON.stringify(["츄르","참치 트릿","연어 스낵","치킨 져키","캣닢 간식"])} (이 목록에서 사주에 맞는 4개만 정확한 이름 그대로 골라주세요),
   "shareQuote": "15자 이내의 한 줄 요약 (공유 카드용)"
 }`;
 
@@ -220,7 +220,7 @@ function Screen2({ petInfo, onDone }) {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        model: "claude-sonnet-4-5",
+        model: "claude-sonnet-4-20250514",
         max_tokens: 1000,
         messages: [{ role: "user", content: prompt }]
       })
@@ -480,7 +480,7 @@ function Screen5Loading({ petInfo, result, ownerInfo, onDone }) {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        model: "claude-sonnet-4-5",
+        model: "claude-sonnet-4-20250514",
         max_tokens: 800,
         messages: [{ role: "user", content: prompt }]
       })
