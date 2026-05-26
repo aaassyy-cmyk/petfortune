@@ -62,19 +62,11 @@ function Screen1({ onNext }) {
   const [petName, setPetName] = useState("");
   const [petBday, setPetBday] = useState("");
   const [dateMode, setDateMode] = useState("birth");
-  const canGo = petName.trim() && petBday.trim() && breed;
+  const canGo = petName.trim() && petBday && breed;
 
   const handleTypeChange = (type) => {
     setPetType(type);
     setBreed("");
-  };
-
-  const handleBday = (e) => {
-    let v = e.target.value.replace(/\D/g, "");
-    if (v.length > 8) v = v.slice(0, 8);
-    if (v.length >= 5) v = v.slice(0, 4) + "." + v.slice(4);
-    if (v.length >= 8) v = v.slice(0, 7) + "." + v.slice(7);
-    setPetBday(v);
   };
 
   const switchMode = (mode) => {
@@ -159,16 +151,24 @@ function Screen1({ onNext }) {
           </div>
         )}
 
-        <input value={petBday} onChange={handleBday}
-          placeholder={dateMode === "birth" ? "YYYY.MM.DD" : "YYYY.MM.DD (처음 만난 날)"}
+        <input
+          type="date"
+          value={petBday}
+          onChange={e => setPetBday(e.target.value)}
+          max={new Date().toISOString().split("T")[0]}
+          min="2000-01-01"
           className="w-full rounded-xl px-4 py-3 text-sm outline-none transition-all border-2"
-          style={{ background: "#f4f4f6", borderColor: petBday ? "#6B5CE7" : "transparent", fontFamily: "inherit" }} />
+          style={{ background: "#f4f4f6", borderColor: petBday ? "#6B5CE7" : "transparent", fontFamily: "inherit", colorScheme: "light" }} />
 
         <button onClick={() => canGo && onNext({ petType, breed, petName, petBday, dateMode })}
           className="w-full py-4 rounded-2xl text-white font-bold text-base mt-5 transition-all active:scale-95"
           style={{ background: canGo ? "#6B5CE7" : "#c4b5fd", cursor: canGo ? "pointer" : "default" }}>
           사주 분석 시작하기 →
         </button>
+
+        <div className="text-center mt-3">
+          <a href="/privacy" target="_blank" className="text-xs text-gray-400 underline">개인정보처리방침</a>
+        </div>
       </div>
     </div>
   );
@@ -220,7 +220,7 @@ function Screen2({ petInfo, onDone }) {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        model: "claude-sonnet-4-5",
+        model: "claude-sonnet-4-20250514",
         max_tokens: 1000,
         messages: [{ role: "user", content: prompt }]
       })
@@ -373,14 +373,6 @@ function Screen4({ petInfo, result, onNext, onBack }) {
   const canGo = ownerBday.trim().length >= 8;
   const el = ELEMENT_STYLES[result.element] || ELEMENT_STYLES["불"];
 
-  const handleBday = (e) => {
-    let v = e.target.value.replace(/\D/g, "");
-    if (v.length > 8) v = v.slice(0, 8);
-    if (v.length >= 5) v = v.slice(0, 4) + "." + v.slice(4);
-    if (v.length >= 8) v = v.slice(0, 7) + "." + v.slice(7);
-    setOwnerBday(v);
-  };
-
   return (
     <div className="flex flex-col min-h-full" style={{ fontFamily: "'Noto Sans KR', sans-serif" }}>
       <div className="text-white px-5 pt-5 pb-7 rounded-b-3xl" style={{ background: "linear-gradient(145deg,#f97316,#fb923c)" }}>
@@ -402,9 +394,14 @@ function Screen4({ petInfo, result, onNext, onBack }) {
         </div>
 
         <label className="text-xs text-gray-400 mb-1 block">집사님 생년월일</label>
-        <input value={ownerBday} onChange={handleBday} placeholder="YYYY.MM.DD"
+        <input
+          type="date"
+          value={ownerBday}
+          onChange={e => setOwnerBday(e.target.value)}
+          max={new Date().toISOString().split("T")[0]}
+          min="1950-01-01"
           className="w-full rounded-xl px-4 py-3 text-sm mb-4 outline-none border-2 transition-all"
-          style={{ background: "#f4f4f6", borderColor: ownerBday ? "#f97316" : "transparent", fontFamily: "inherit" }} />
+          style={{ background: "#f4f4f6", borderColor: ownerBday ? "#f97316" : "transparent", fontFamily: "inherit", colorScheme: "light" }} />
 
         <label className="text-xs text-gray-400 mb-2 block">성별 (선택)</label>
         <div className="flex gap-2 mb-4">
@@ -480,7 +477,7 @@ function Screen5Loading({ petInfo, result, ownerInfo, onDone }) {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        model: "claude-sonnet-4-5",
+        model: "claude-sonnet-4-20250514",
         max_tokens: 800,
         messages: [{ role: "user", content: prompt }]
       })
