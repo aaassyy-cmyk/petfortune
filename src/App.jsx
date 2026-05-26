@@ -167,7 +167,7 @@ function Screen1({ onNext }) {
         </button>
 
         <div className="text-center mt-3">
-          <a href="/privacy" target="_blank" className="text-xs text-gray-400 underline">개인정보처리방침</a>
+          <a href="/privacy.html" target="_blank" className="text-xs text-gray-400 underline">개인정보처리방침</a>
         </div>
       </div>
     </div>
