@@ -228,11 +228,17 @@ function Screen2({ petInfo, onDone }) {
       .then(r => r.json())
       .then(data => {
         const text = data.content?.map(c => c.text || "").join("") || "";
-        const clean = text.replace(/```json|```/g, "").trim();
-        const result = JSON.parse(clean);
-        onDone(result);
+        const clean = text.replace(/```json\n?|```/g, "").trim();
+        const jsonMatch = clean.match(/\{[\s\S]*\}/);
+        if (jsonMatch) {
+          const result = JSON.parse(jsonMatch[0]);
+          onDone(result);
+        } else {
+          throw new Error("JSON not found");
+        }
       })
-      .catch(() => {
+      .catch((err) => {
+        console.error("사주 API 에러:", err);
         // fallback
         onDone({
           element: "불",
@@ -509,10 +515,16 @@ function Screen5Loading({ petInfo, result, ownerInfo, onDone }) {
       .then(r => r.json())
       .then(data => {
         const text = data.content?.map(c => c.text || "").join("") || "";
-        const clean = text.replace(/```json|```/g, "").trim();
-        onDone(JSON.parse(clean));
+        const clean = text.replace(/```json\n?|```/g, "").trim();
+        const jsonMatch = clean.match(/\{[\s\S]*\}/);
+        if (jsonMatch) {
+          onDone(JSON.parse(jsonMatch[0]));
+        } else {
+          throw new Error("JSON not found");
+        }
       })
-      .catch(() => {
+      .catch((err) => {
+        console.error("궁합 API 에러:", err);
         onDone({
           score: 87,
           grade: "천생연분",
