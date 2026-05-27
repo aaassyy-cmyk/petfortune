@@ -491,15 +491,16 @@ function Screen5Loading({ petInfo, result, ownerInfo, onDone }) {
 
 다음 JSON 형식으로만 응답하세요:
 {
-  "score": 숫자(55-99),
-  "grade": "천생연분|찰떡궁합|좋은인연|무난한사이 중 하나",
+  "score": 숫자(70-99). 입력된 생년월일 조합에 따라 매번 다르게 계산해주세요. 절대 87로 고정하지 마세요,
+  "grade": "천생연분|찰떡궁합|좋은인연|무난한사이 중 하나 (90이상: 천생연분, 80-89: 찰떡궁합, 70-79: 좋은인연, 70미만: 무난한사이)",
   "gradeEmoji": "등급에 맞는 이모지",
   "ownerElement": "불|물|나무|금|흙 중 하나",
   "ownerTypeName": "집사님의 기운 유형명 (예: 물의 안정형)",
   "chemistryDesc": "두 기운의 조합 설명 (예: 불 기운 + 물 기운 = 완벽한 밸런스)",
   "pairCharacter": "2-3문장. 이 조합의 특징을 재미있게.",
   "monthlyTip": "이달의 케어 팁 1-2문장. 구체적이고 귀여운.",
-  "topPercent": 숫자(1-20),
+  "compatTip": "궁합을 더 좋게 하는 방법 1-2문장. 예: '산책을 함께 하면 둘의 기운이 맞춰져요' 같은 구체적인 행동 팁.",
+  "topPercent": 숫자(1-30),
   "compatKeywords": ["#키워드1", "#키워드2"]
 }`;
 
@@ -624,6 +625,13 @@ function Screen6({ petInfo, result, ownerInfo, compatResult, onReset, onBack }) 
           <div className="text-xs font-bold text-orange-600 mb-2">💌 이달의 케어 팁</div>
           <div className="text-sm text-gray-600 leading-relaxed">{compatResult.monthlyTip}</div>
         </div>
+
+        {compatResult.compatTip && (
+          <div className="rounded-2xl p-4 border-l-4" style={{ background: "#f0eeff", borderColor: "#6B5CE7" }}>
+            <div className="text-xs font-bold mb-2" style={{ color: "#6B5CE7" }}>✨ 궁합을 더 좋게 하려면</div>
+            <div className="text-sm text-gray-600 leading-relaxed">{compatResult.compatTip}</div>
+          </div>
+        )}
 
         <button className="w-full py-4 rounded-2xl text-white font-bold text-sm active:scale-95 transition-all" style={{ background: "#f97316", fontFamily: "inherit" }}
           onClick={() => {
