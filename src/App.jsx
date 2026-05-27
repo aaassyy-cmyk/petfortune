@@ -359,15 +359,6 @@ function Screen3({ petInfo, result, onNext, onReset }) {
           </div>
         </div>
 
-        {/* 무료 프로모션 배너 */}
-        <div className="flex items-center gap-2 rounded-2xl px-4 py-3" style={{ background: "linear-gradient(135deg,#fff7ed,#fef3c7)", border: "1.5px solid #fed7aa" }}>
-          <span className="text-lg">🎁</span>
-          <div className="flex-1">
-            <div className="text-xs font-bold text-orange-600">5월 31일까지 궁합 무료!</div>
-            <div className="text-xs text-orange-400">6월 1일부터 990원 · 지금 무료로 확인하세요</div>
-          </div>
-        </div>
-
         {/* 공유 버튼 */}
         <button className="w-full flex items-center justify-center gap-2 rounded-2xl py-3 border-2 active:scale-95 transition-all"
           style={{ background: "#fff", borderColor: "#e8e4ff", color: "#6B5CE7", fontFamily: "inherit" }}
