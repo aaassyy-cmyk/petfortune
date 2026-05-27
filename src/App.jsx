@@ -362,6 +362,21 @@ function Screen3({ petInfo, result, onNext, onReset }) {
           </div>
         </div>
 
+        {/* 공유 버튼 */}
+        <button className="w-full flex items-center justify-center gap-2 rounded-2xl py-3 border-2 active:scale-95 transition-all"
+          style={{ background: "#fff", borderColor: "#e8e4ff", color: "#6B5CE7", fontFamily: "inherit" }}
+          onClick={() => {
+            const text = `🐾 우리 ${petInfo.petName} 사주 봤어요!\n${result.typeName} ${result.typeEmoji}\n${result.keywords.join(" ")}\n\n우리 아이 사주도 봐봐 👇`;
+            if (navigator.share) {
+              navigator.share({ title: "마이펫 포춘", text, url: "https://petfortune.vercel.app" });
+            } else {
+              navigator.clipboard.writeText(text + "\nhttps://petfortune.vercel.app");
+              alert("링크가 복사됐어요! 붙여넣기해서 공유하세요 😊");
+            }
+          }}>
+          <span className="text-sm font-bold">📤 사주 결과 공유하기</span>
+        </button>
+
         {/* Compat CTA */}
         <button onClick={onNext} className="w-full flex items-center gap-3 rounded-2xl p-4 border-2 transition-all active:scale-95" style={{ background: "linear-gradient(135deg,#fdf4ff,#f0e8ff)", borderColor: "#e8d5ff" }}>
           <span className="text-3xl">💞</span>
@@ -598,8 +613,17 @@ function Screen6({ petInfo, result, ownerInfo, compatResult, onReset, onBack }) 
           <div className="text-sm text-gray-600 leading-relaxed">{compatResult.monthlyTip}</div>
         </div>
 
-        <button className="w-full py-4 rounded-2xl text-white font-bold text-sm active:scale-95 transition-all" style={{ background: "#f97316", fontFamily: "inherit" }}>
-          📤 결과 카드 저장하기
+        <button className="w-full py-4 rounded-2xl text-white font-bold text-sm active:scale-95 transition-all" style={{ background: "#f97316", fontFamily: "inherit" }}
+          onClick={() => {
+            const text = `🐾 ${petInfo.petName}와 집사님의 궁합!\n💞 ${compatResult.grade} ${compatResult.score}점\n${compatResult.chemistryDesc}\n\n우리 아이 사주도 봐봐 👇`;
+            if (navigator.share) {
+              navigator.share({ title: "마이펫 포춘 궁합 결과", text, url: "https://petfortune.vercel.app" });
+            } else {
+              navigator.clipboard.writeText(text + "\nhttps://petfortune.vercel.app");
+              alert("링크가 복사됐어요! 붙여넣기해서 공유하세요 😊");
+            }
+          }}>
+          📤 결과 공유하기
         </button>
 
         <button onClick={onReset} className="w-full py-3.5 rounded-2xl font-bold text-sm border-2 active:scale-95 transition-all" style={{ background: "#fff", color: "#f97316", borderColor: "#fed7aa", fontFamily: "inherit" }}>
